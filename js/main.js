@@ -1,6 +1,6 @@
 /**
- * Display Icons
  *
+ * Display Icons
  *
  */
 
@@ -105,6 +105,30 @@ $(document).ready(function () {
       },
   ];
 
+const colors = [
+  'blue',
+  'orange',
+  'purple'
+]
+
+// Icon container
+  const container = $('.icons');
+
+// Print icons on screen
+  printIcons(icons, container);
+
+// Print with colors (Blue-Orange-Purple)
+  const coloredIcons = colorIcons(icons, colors);
+  console.log(coloredIcons);
+// Filter icon by type (Animal-Vegetable-User)
+
+// Generate options
+
+// Change Event
+
+
+
+
 
 }); // <-- END doc ready
 
@@ -112,3 +136,51 @@ $(document).ready(function () {
 /**
  * Functions
  */
+
+// Function to print icons on screen
+function printIcons(icons, container){
+// to clean container
+  //container.html('');
+
+  icons.forEach((icon) => {
+    const{family, prefix, name} = icon;
+
+    const html =
+    `<div class="icon">
+      <i class="${family} ${prefix}${name}"></i>
+      <div class="name">${name}</div>
+    </div>`;
+
+    container.append(html);
+  });
+}
+// Function to print with colors (Blue-Orange-Purple)
+function colorIcons(icons, colors){
+  // get type
+  const types = getType(icons);
+  console.log(types);
+  // assign color by type
+  const coloredIcons = icons.map((icon)=>{
+    const indexType = types.indexOf(icon.type);
+
+    return{
+      ...icon,
+      color: colors[indexType]
+      };
+  });
+  
+  return coloredIcons;
+}
+
+// Function get types
+function getType(icons){
+  const types = [];
+
+  icons.forEach((icon) => {
+    if(! types.includes(icon.type)){
+      types.push(icon.type);
+    }
+  });
+
+return types;
+}
