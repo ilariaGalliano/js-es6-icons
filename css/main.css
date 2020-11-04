@@ -1,0 +1,14 @@
+/* General */
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Layout */
+header{
+  font-family: 'Acme', sans-serif;
+}
+.container{
+  font-family: 'Rubik', sans-serif;
+}
