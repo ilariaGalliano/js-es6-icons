@@ -120,16 +120,22 @@ const colors = [
 // Print with colors (Blue-Orange-Purple)
   const coloredIcons = colorIcons(icons, colors);
   console.log(coloredIcons);
+  printIcons(coloredIcons, container);
+
 // Filter icon by type (Animal-Vegetable-User)
-
+  const select = $('#type');
+  const types = getType(icons);
 // Generate options
-
+  genOption(types, select);
 // Change Event
-
-
-
-
-
+  select.change(()=>{
+    const selected = select.val();
+   //console.log(selected);
+// Filter icon
+    const filter = filterIcon(coloredIcons, selected);
+    printIcons(filter, container);
+  });
+  
 }); // <-- END doc ready
 
 
@@ -140,14 +146,15 @@ const colors = [
 // Function to print icons on screen
 function printIcons(icons, container){
 // to clean container
-  //container.html('');
+  container.html('');
 
   icons.forEach((icon) => {
-    const{family, prefix, name} = icon;
+    const{family, prefix, name, color} = icon;
 
     const html =
     `<div class="icon">
-      <i class="${family} ${prefix}${name}"></i>
+      <i class="${family} ${prefix}${name}"
+       style= "color: ${color}"></i>
       <div class="name">${name}</div>
     </div>`;
 
@@ -168,7 +175,6 @@ function colorIcons(icons, colors){
       color: colors[indexType]
       };
   });
-  
   return coloredIcons;
 }
 
@@ -181,6 +187,25 @@ function getType(icons){
       types.push(icon.type);
     }
   });
-
 return types;
+}
+
+// Function to generate options by type
+function genOption(types, select){
+  types.forEach((opt) => {
+    select.append(`<option value="${opt}">${opt}</option`)
+  });
+}
+
+// Function filter icons
+function filterIcon(coloredIcons, selected){
+
+  if (selected === 'all') {
+    return coloredIcons;
+  }
+
+  const filteredIcon = coloredIcons.filter((icon)=>{
+    return icon.type === selected;
+  });
+return filteredIcon;
 }
